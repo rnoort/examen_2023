@@ -47,7 +47,6 @@
 
         public function updateLeverancier($post)
         {
-            var_dump($post);
             $this->db->query("CALL updateLeverancier(:id, :bedrijfsnaam, :naam, :email, :telefoonnummer, :straatnaam, :huisnummer, :toevoeging, :postcode, :plaats, :eerstvolgendelevering);");
             $this->db->bind(":id", $post["lId"]);
             $this->db->bind(":bedrijfsnaam", $post["bedrijfsnaam"]);
@@ -60,8 +59,6 @@
             $this->db->bind(":postcode", $post["postcode"]);
             $this->db->bind(":plaats", $post["plaats"]);
             $this->db->bind(":eerstvolgendelevering", $post["eerstvolgendelevering"] == "" ? null : $post["eerstvolgendelevering"]);
-            var_dump($this->db->single());
-            exit;
 
         }
 
