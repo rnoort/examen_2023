@@ -78,7 +78,7 @@ CREATE TABLE `Voedselpakket` (
   `DatumUitgifte` datetime NULL,
   `KlantId` int NOT NULL,
   `IsActief` bit(1) NOT NULL DEFAULT 0,
-  `Opmerking` text NOT NULL,
+  `Opmerking` text,
   `AangemaaktOp` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `GewijzigdOp` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB;
@@ -89,7 +89,7 @@ CREATE TABLE `VoedselpakketProduct` (
   `VoedselpakketId` int NOT NULL,
   `Aantal` int NOT NULL,
   `IsActief` bit(1) NOT NULL DEFAULT 0,
-  `Opmerking` text NOT NULL,
+  `Opmerking` text,
   `AangemaaktOp` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `GewijzigdOp` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB;
@@ -101,7 +101,7 @@ CREATE TABLE `Product` (
   `AantalInVoorraad` int,
   `CategorieId` int NOT NULL,
   `IsActief` bit(1) NOT NULL DEFAULT 0,
-  `Opmerking` text NOT NULL,
+  `Opmerking` text,
   `AangemaaktOp` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `GewijzigdOp` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB;
@@ -110,7 +110,7 @@ CREATE TABLE `Categorie` (
   `Id` int PRIMARY KEY AUTO_INCREMENT,
   `Naam` Varchar(50) NOT NULL,
   `IsActief` bit(1) NOT NULL DEFAULT 0,
-  `Opmerking` text NOT NULL,
+  `Opmerking` text,
   `AangemaaktOp` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `GewijzigdOp` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB;
@@ -119,7 +119,7 @@ CREATE TABLE `Rol` (
   `Id` int PRIMARY KEY AUTO_INCREMENT,
   `Naam` varchar(30) NOT NULL,
   `IsActief` bit(1) NOT NULL DEFAULT 0,
-  `Opmerking` text NOT NULL,
+  `Opmerking` text,
   `AangemaaktOp` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `GewijzigdOp` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB;
@@ -130,7 +130,7 @@ CREATE TABLE `Gebruiker` (
   `Wachtwoord` varchar(60) NOT NULL,
   `ContactId` int NOT NULL,
   `IsActief` bit(1) NOT NULL DEFAULT 0,
-  `Opmerking` text NOT NULL,
+  `Opmerking` text,
   `AangemaaktOp` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `GewijzigdOp` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB;
@@ -140,7 +140,7 @@ CREATE TABLE `GebruikerRol` (
   `GebruikerId` int NOT NULL,
   `RolId` int NOT NULL,
   `IsActief` bit(1) NOT NULL DEFAULT 0,
-  `Opmerking` text NOT NULL,
+  `Opmerking` text,
   `AangemaaktOp` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `GewijzigdOp` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB;
@@ -149,7 +149,7 @@ CREATE TABLE `Allergie` (
   `Id` int PRIMARY KEY AUTO_INCREMENT,
   `Naam` varchar(60) NOT NULL,
   `IsActief` bit(1) NOT NULL DEFAULT 0,
-  `Opmerking` text NOT NULL,
+  `Opmerking` text,
   `AangemaaktOp` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `GewijzigdOp` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB;
@@ -159,7 +159,7 @@ CREATE TABLE `KlantAllergie` (
   `KlantId` int NOT NULL,
   `AllergieId` int NOT NULL,
   `IsActief` bit(1) NOT NULL DEFAULT 0,
-  `Opmerking` text NOT NULL,
+  `Opmerking` text,
   `AangemaaktOp` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `GewijzigdOp` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB;
@@ -168,7 +168,7 @@ CREATE TABLE `Wens` (
   `Id` int PRIMARY KEY AUTO_INCREMENT,
   `Naam` varchar(60) NOT NULL,
   `IsActief` bit(1) NOT NULL DEFAULT 0,
-  `Opmerking` text NOT NULL,
+  `Opmerking` text,
   `AangemaaktOp` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `GewijzigdOp` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB;
@@ -178,7 +178,7 @@ CREATE TABLE `KlantWens` (
   `KlantId` int NOT NULL,
   `WensId` int NOT NULL,
   `IsActief` bit(1) NOT NULL DEFAULT 0,
-  `Opmerking` text NOT NULL,
+  `Opmerking` text,
   `AangemaaktOp` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `GewijzigdOp` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB;
