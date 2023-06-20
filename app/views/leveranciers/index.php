@@ -24,14 +24,15 @@
                     <tr>
                         <th scope="col">Bedrijfsnaam</th>
                         <th scope="col">Adres</th>
-                        <th scope="col">Contact</th>
+                        <th scope="col">Contactnaam</th>
+                        <th scope="col">Contactmail</th>
+                        <th scope="col">Telefoonnummer</th>
                         <th scope="col">Eerst volgende levering</th>
                         <th scope="col">Acties</th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php foreach ($data["records"] as $record): ?>
-                        <?php var_dump($record); ?>
                         <tr>
                             <td>
                                 <?= $record->Bedrijfsnaam ?>
@@ -40,7 +41,13 @@
                                 <?= $record->Straatnaam . " " . $record->Huisnummer . " " . $record->Toevoeging . " " . $record->Postcode . " " . $record->Plaats ?>
                             </td>
                             <td class="break-all">
-                                <?= $record->ContactNaam . $record->Email . $record->Telefoonnummer ?>
+                                <?= $record->ContactNaam ?>
+                            </td>
+                            <td>
+                                <?= $record->Email ?>
+                            </td>
+                            <td>
+                                <?= $record->Telefoonnummer ?>
                             </td>
                             <td>
                                 <?= $record->EerstVolgendeLevering ?>
