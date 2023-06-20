@@ -69,10 +69,11 @@ include APPROOT . "/views/Includes/Navbar.php";
                 <td><?= $product->ProductNaam ?></td>
                 <td><?= $product->Naam ?></td>
                 <td><?= $product->AantalInVoorraad ?></td>
-                <td class="input"><input type="number" name="<?= $product->Id ?>" id="product_<?= $product->Id ?>"></td>
+                <td class="input"><input type="number" name="<?= $product->Id ?>" id="product_<?= $product->Id ?>" min="0" max="<?= $product->AantalInVoorraad ?>" value="<?php if (isset($_POST["$product->Id"])) echo $_POST["$product->Id"]?>"></td>
             </tr>
             <?php endforeach; ?>
         </table>
         <input type="submit" value="Aanmaken">
+        <p><?= $data['Error'] ?></p>
     </form>
 </div>

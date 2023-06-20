@@ -42,10 +42,16 @@ class VoedselpakketModel
             $this->db->query("CALL spCreateVoedselpakket(:csvString, :klantId)");
             $this->db->bind(":csvString", $csvString);
             $this->db->bind(":klantId", $klantId);
-            return $this->db->execute();
+            return $this->db->single();
         } catch (PDOException $e) {
             throw $e;
         }
+    }
 
+    public function getProductById($productId)
+    {
+        $this->db->query("CALL spGetProductById(:productId)");
+        $this->db->bind(":productId", $productId);
+        return $this->db->single();
     }
 }
