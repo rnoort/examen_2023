@@ -31,6 +31,7 @@
                 </thead>
                 <tbody>
                     <?php foreach ($data["records"] as $record): ?>
+                        <?php var_dump($record); ?>
                         <tr>
                             <td>
                                 <?= $record->Bedrijfsnaam ?>
@@ -46,9 +47,9 @@
                             </td>
 
                             <td><a class="bg-orange-400 hover:bg-orange-500 font-bold px-4 py-1 p-2 rounded text-black"
-                                    href="<?= URLROOT . '/leverancier/update/' . $record->Id ?>">Wijzigen</a></td>
+                                    href="<?= URLROOT . '/leverancier/update/' . $record->lId ?>">Wijzigen</a></td>
                             <td><a class="bg-red-400 hover:bg-red-500 font-bold px-4 py-1 p-2 rounded text-black"
-                                    href="<?= URLROOT . '/leverancier/delete/' . $record->Id ?>">Verwijderen</a></td>
+                                    href="<?= URLROOT . '/leverancier/delete/' . $record->lId ?>">Verwijderen</a></td>
                         </tr>
                     <?php endforeach; ?>
                 </tbody>

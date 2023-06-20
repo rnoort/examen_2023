@@ -21,7 +21,7 @@
                 </span> wilt verwijderen?</p>
 
             <form method="post">
-                <input type="hidden" value="<?= $data["record"]->Id ?>" name="id">
+                <input type="hidden" value="<?= $data["record"]->lId ?>" name="id">
                 <button type="submit"
                     class="bg-red-400 hover:bg-red-500 font-bold px-4 py-1 p-2 rounded text-black">Verwijderen</button>
             </form>
@@ -29,8 +29,13 @@
             <a class="bg-green-400 hover:bg-green-500 font-bold px-4 py-1 p-2 rounded text-black"
                 href="<?= URLROOT . '/leverancier' ?>">Terug</a>
         <?php else: ?>
-            <p>De leverancier is verwijderd</p>
-            <?php header("refresh: 3;url=" . URLROOT . "/leverancier"); ?>
+            <?php if($_GET["m"] = "s"): ?>
+                <p>De leverancier is verwijderd</p>
+                <?php header("refresh: 3;url=" . URLROOT . "/leverancier"); ?>
+            <?php elseif($_GET["m"] == "f"): ?>
+                <p>Er is een fout opgetreden: de database heeft een fout.</p>
+                <?php header("refresh: 3;url=" . URLROOT . "/leverancier"); ?>
+            <?php endif; ?>
         <?php endif; ?>
     </div>
 </body>
