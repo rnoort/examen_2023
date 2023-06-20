@@ -59,7 +59,7 @@
             $this->db->bind(":postcode", $post["postcode"]);
             $this->db->bind(":plaats", $post["plaats"]);
             $this->db->bind(":eerstvolgendelevering", $post["eerstvolgendelevering"] == "" ? null : $post["eerstvolgendelevering"]);
-
+            $this->db->execute();
         }
 
         // public function deleteScore($id)
