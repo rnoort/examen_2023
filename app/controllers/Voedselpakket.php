@@ -16,9 +16,26 @@ class Voedselpakket extends Controller
 
     public function aanmaken($klantId = null)
     {
+        // if a post has been submitted enter this block
 		if ($_SERVER["REQUEST_METHOD"] == "POST")
         {
-            var_dump($_POST);
+            // loops through all the post inputs and creates a comma separated string so it can later be put in the db in 1 stored procedure
+            $csvString = "";
+            foreach ($_POST as $key => $product)
+            {
+                if (strlen($product) == 0)
+                    continue;
+                if (strlen($csvString) > 0)
+                    $csvString .= ",";
+                $csvString .= $key . ":" . $product;
+            }
+
+            // validation here!
+
+            // put voedselpakket in db
+            $this->voedselpakketModel->createVoedselpakket($klantId, $csvString);
+
+            header("Location: " . URLROOT . "/voedselpakket/");
         }
 
         // klantId is needed to access this page, as this id ties the voedselpakket to the klant. As such, it will redirect the user back to root
@@ -40,5 +57,10 @@ class Voedselpakket extends Controller
             "Producten" => $producten
         ];
         $this->view('Voedselpakket/aanmaken', $data);
+    }
+
+    private function validateCreate($post)
+    {
+
     }
 }

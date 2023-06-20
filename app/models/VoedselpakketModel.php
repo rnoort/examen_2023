@@ -35,4 +35,17 @@ class VoedselpakketModel
         $this->db->query("SELECT * FROM vwGetAvailableProducten");
         return $this->db->resultSet();
     }
+
+    public function createVoedselpakket($klantId, $csvString)
+    {
+        try {
+            $this->db->query("CALL spCreateVoedselpakket(:csvString, :klantId)");
+            $this->db->bind(":csvString", $csvString);
+            $this->db->bind(":klantId", $klantId);
+            return $this->db->execute();
+        } catch (PDOException $e) {
+            throw $e;
+        }
+
+    }
 }
