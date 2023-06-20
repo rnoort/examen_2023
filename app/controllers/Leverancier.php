@@ -61,7 +61,27 @@ class Leverancier extends Controller
 
     public function delete($id = NULL)
     {
+        if($_SERVER["REQUEST_METHOD"] == "GET")
+        {
+            // Get leverancier from database
+            $leverancier = $this->model->getLeverancierById($id);
+            
+            // Make data object
+            $data = [
+                "record" => $leverancier
+            ];
 
+            // Show page with confirmation
+            $this->view("leveranciers/delete", $data);
+        }
+            else if($_SERVER["REQUEST_METHOD"] == "POST")
+        {
+            // Delete leverancier
+            $this->model->deleteLeverancier($id);
+            
+            // Show message
+            header("location: " . URLROOT . "/leverancier/delete?m=s");
+        }
     }
 
 }

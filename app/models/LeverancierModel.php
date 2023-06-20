@@ -17,6 +17,33 @@
 
         public function getLeverancierById($id)
         {
+            $this->db->query("CALL getLeverancierById(:id);");
+            $this->db->bind(":id", $id);
+            return $this->db->single();
+        }
+
+        public function deleteLeverancier($id)
+        {
+            $this->db->query("CALL deleteLeverancier(:id)");
+            $this->db->bind(":id", $id);
+            $this->db->execute();
+        }
+
+        public function createLeverancier($post)
+        {
+            var_dump($post);
+            $this->db->query("CALL createLeverancier(:bedrijfsnaam, :naam, :email, :telefoonnummer, :straatnaam, :huisnummer, :toevoeging, :postcode, :plaats);");
+            $this->db->bind(":bedrijfsnaam", $post["bedrijfsnaam"]);
+            $this->db->bind(":naam", $post["contactnaam"]);
+            $this->db->bind(":email", $post["email"]);
+            $this->db->bind(":telefoonnummer", $post["telefoonnummer"]);
+            $this->db->bind(":straatnaam", $post["straatnaam"]);
+            $this->db->bind(":huisnummer", $post["huisnummer"]);
+            $this->db->bind(":toevoeging", $post["toevoeging"]);
+            $this->db->bind(":postcode", $post["postcode"]);
+            $this->db->bind(":plaats", $post["plaats"]);
+
+            $this->db->execute();
 
         }
 
