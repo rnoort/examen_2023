@@ -84,6 +84,8 @@ class Voedselpakket extends Controller
         // id is needed to access this page
         if (!isset($id))
             header("Location: " . URLROOT);
+
+        // gets the data for this voedselpakket from the database and checks if it exists at all
         $voedselpakket = $this->voedselpakketModel->getVoedselpakketById($id);
         if (!$voedselpakket)
         {
@@ -125,6 +127,9 @@ class Voedselpakket extends Controller
 
     public function definitief($id)
     {
+        // id is needed to access this page
+        if (!isset($id))
+            header("Location: " . URLROOT);
         if (!$this->voedselpakketModel->deleteVoedselpakket($id))
         {
             header("Location: " . URLROOT . "/voedselpakket/");
@@ -133,11 +138,82 @@ class Voedselpakket extends Controller
         }
     }
 
+    public function aanpassen($id)
+    {
+        $error = "";
+
+        // id is needed to access this page
+        if (!isset($id))
+            header("Location: " . URLROOT);
+
+        // gets the data for this voedselpakket from the database and checks if it exists at all
+        $voedselpakket = $this->voedselpakketModel->getVoedselpakketById($id);
+        if (!$voedselpakket)
+        {
+            $error = "Dit voedselpakket bestaat niet";
+            $data = ["Error" => $error];
+        }
+        else {
+            // gets all products with the amounts in this voedselpakket but also all the products that are not in this voedselpakket 
+            $voedselpakketProducten = $this->voedselpakketModel->getAllProductenByVoedselpakketId($id);
+
+            // if a post has been submitted enter this block
+		    if ($_SERVER["REQUEST_METHOD"] == "POST")
+            {
+			    $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+             
+                // validation here!
+                $error = $this->validateUpdateVoedselpakket($_POST);
+
+                if (isset($_POST['uitgifte']))
+                {
+                    if ($_POST['uitgifte'] != '')
+                    {
+                        $this->voedselpakketModel->updateVoedselpakket($_POST, $id);
+                    }
+                }
+            }
+
+            $klantId = $voedselpakket->KlantId;
+    
+            // Get all necessary information about the klant
+            $klant = $this->voedselpakketModel->getKlantPerId($klantId);
+            $allergieen = $this->voedselpakketModel->getAllergieenPerKlantId($klantId);
+            $wensen = $this->voedselpakketModel->getWensenPerKlantId($klantId);
+    
+            $data = [
+                "Naam" => strlen($klant->Tussenvoegsel) > 0 ? "$klant->Voornaam $klant->Tussenvoegsel $klant->Achternaam" : "$klant->Voornaam $klant->Achternaam",
+                "Klant" => $klant,
+                "Allergieen" => $allergieen,
+                "Wensen" => $wensen,
+                "Producten" => $voedselpakketProducten,
+                "Voedselpakket" => $voedselpakket,
+                "Id" => $id,
+                "Error" => $error
+            ];
+        }
+        $this->view('Voedselpakket/aanpassen', $data);
+    }
+
     public function validateCreateVoedselpakket($post)
     {
         foreach ($post as $key => $product)
         {
             if (strlen($product) == 0)
+                continue;
+            if ($product < 0)
+                return "Product aantal mag niet lager dan 0 zijn";
+            if ($product > $this->voedselpakketModel->getProductById($key)->AantalInVoorraad)
+                return "Product aantal mag niet hoger zijn dan er in het voorraad beschikbaar zijn";
+        }
+        return "";
+    }
+    
+    public function validateUpdateVoedselpakket($post)
+    {
+        foreach ($post as $key => $product)
+        {
+            if (strlen($product) == 0 || $key == "uitgifte")
                 continue;
             if ($product < 0)
                 return "Product aantal mag niet lager dan 0 zijn";

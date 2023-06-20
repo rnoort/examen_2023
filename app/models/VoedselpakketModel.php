@@ -68,11 +68,30 @@ class VoedselpakketModel
         return $this->db->resultSet();
     }
 
+    public function getAllProductenByVoedselpakketId($id)
+    {
+        $this->db->query("CALL spGetAllProductenByVoedselpakketId(:id)");
+        $this->db->bind(":id", $id);
+        return $this->db->resultSet();
+    }
+
     public function getProductById($productId)
     {
         $this->db->query("CALL spGetProductById(:productId)");
         $this->db->bind(":productId", $productId);
         return $this->db->single();
+    }
+
+    public function updateVoedselpakket($post, $id)
+    {
+        try {
+            $this->db->query("CALL spUpdateVoedselpakket(:uitgifte, :id)");
+            $this->db->bind(":uitgifte", $post['uitgifte']);
+            $this->db->bind(":id", $id);
+        return $this->db->single();
+        } catch (PDOException $e) {
+            throw $e;
+        }
     }
 
     public function deleteVoedselpakket($id)
@@ -81,7 +100,7 @@ class VoedselpakketModel
             $this->db->query("CALL spDeleteVoedselpakket(:id)");
             $this->db->bind(":id", $id);
             return $this->db->single();
-        }   catch (PDOException $e) {
+        } catch (PDOException $e) {
             throw $e;
         }
     }

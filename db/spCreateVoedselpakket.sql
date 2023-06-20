@@ -52,9 +52,9 @@ BEGIN
                     ,ProductId
                     ,Aantal
 				);
-				UPDATE `Product` 
-                SET `AantalInVoorraad` = `AantalInVoorraad` - Aantal
-                WHERE `Id` = ProductId;
+				-- UPDATE `Product` 
+                -- SET `AantalInVoorraad` = `AantalInVoorraad` - Aantal
+                -- WHERE `Id` = ProductId;
 			END IF;
 
 			SET Remainder = SUBSTRING(Remainder, Pos + 1);
