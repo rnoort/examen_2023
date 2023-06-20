@@ -78,7 +78,7 @@ CREATE TABLE `Voedselpakket` (
   `DatumUitgifte` datetime NULL,
   `KlantId` int NOT NULL,
   `IsActief` bit(1) NOT NULL DEFAULT 0,
-  `Opmerking` text NOT NULL,
+  `Opmerking` text,
   `AangemaaktOp` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `GewijzigdOp` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB;
@@ -89,7 +89,7 @@ CREATE TABLE `VoedselpakketProduct` (
   `VoedselpakketId` int NOT NULL,
   `Aantal` int NOT NULL,
   `IsActief` bit(1) NOT NULL DEFAULT 0,
-  `Opmerking` text NOT NULL,
+  `Opmerking` text,
   `AangemaaktOp` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `GewijzigdOp` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB;
@@ -101,7 +101,7 @@ CREATE TABLE `Product` (
   `AantalInVoorraad` int,
   `CategorieId` int NOT NULL,
   `IsActief` bit(1) NOT NULL DEFAULT 0,
-  `Opmerking` text NOT NULL,
+  `Opmerking` text,
   `AangemaaktOp` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `GewijzigdOp` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB;
@@ -110,7 +110,7 @@ CREATE TABLE `Categorie` (
   `Id` int PRIMARY KEY AUTO_INCREMENT,
   `Naam` Varchar(50) NOT NULL,
   `IsActief` bit(1) NOT NULL DEFAULT 0,
-  `Opmerking` text NOT NULL,
+  `Opmerking` text,
   `AangemaaktOp` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `GewijzigdOp` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB;
@@ -119,7 +119,7 @@ CREATE TABLE `Rol` (
   `Id` int PRIMARY KEY AUTO_INCREMENT,
   `Naam` varchar(30) NOT NULL,
   `IsActief` bit(1) NOT NULL DEFAULT 0,
-  `Opmerking` text NOT NULL,
+  `Opmerking` text,
   `AangemaaktOp` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `GewijzigdOp` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB;
@@ -130,7 +130,7 @@ CREATE TABLE `Gebruiker` (
   `Wachtwoord` varchar(60) NOT NULL,
   `ContactId` int NOT NULL,
   `IsActief` bit(1) NOT NULL DEFAULT 0,
-  `Opmerking` text NOT NULL,
+  `Opmerking` text,
   `AangemaaktOp` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `GewijzigdOp` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB;
@@ -140,7 +140,7 @@ CREATE TABLE `GebruikerRol` (
   `GebruikerId` int NOT NULL,
   `RolId` int NOT NULL,
   `IsActief` bit(1) NOT NULL DEFAULT 0,
-  `Opmerking` text NOT NULL,
+  `Opmerking` text,
   `AangemaaktOp` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `GewijzigdOp` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB;
@@ -149,7 +149,7 @@ CREATE TABLE `Allergie` (
   `Id` int PRIMARY KEY AUTO_INCREMENT,
   `Naam` varchar(60) NOT NULL,
   `IsActief` bit(1) NOT NULL DEFAULT 0,
-  `Opmerking` text NOT NULL,
+  `Opmerking` text,
   `AangemaaktOp` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `GewijzigdOp` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB;
@@ -159,7 +159,7 @@ CREATE TABLE `KlantAllergie` (
   `KlantId` int NOT NULL,
   `AllergieId` int NOT NULL,
   `IsActief` bit(1) NOT NULL DEFAULT 0,
-  `Opmerking` text NOT NULL,
+  `Opmerking` text,
   `AangemaaktOp` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `GewijzigdOp` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB;
@@ -168,7 +168,7 @@ CREATE TABLE `Wens` (
   `Id` int PRIMARY KEY AUTO_INCREMENT,
   `Naam` varchar(60) NOT NULL,
   `IsActief` bit(1) NOT NULL DEFAULT 0,
-  `Opmerking` text NOT NULL,
+  `Opmerking` text,
   `AangemaaktOp` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `GewijzigdOp` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB;
@@ -178,7 +178,7 @@ CREATE TABLE `KlantWens` (
   `KlantId` int NOT NULL,
   `WensId` int NOT NULL,
   `IsActief` bit(1) NOT NULL DEFAULT 0,
-  `Opmerking` text NOT NULL,
+  `Opmerking` text,
   `AangemaaktOp` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `GewijzigdOp` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB;
@@ -334,3 +334,149 @@ INSERT INTO `KlantWens` (`KlantId`, `WensId`) VALUES
 (2, 4),
 (2, 5),
 (3, 4);
+
+
+DROP PROCEDURE IF EXISTS getLeveranciers;
+DELIMITER //
+CREATE PROCEDURE getLeveranciers
+(
+)
+BEGIN
+  DECLARE EXIT HANDLER FOR SQLEXCEPTION
+  BEGIN 
+    ROLLBACK;
+    SELECT 'ERROR';
+  end;
+  START TRANSACTION;
+    SELECT Leverancier.Id as lId, Leverancier.*, Contact.*, Adres.* FROM Leverancier INNER JOIN Adres on Leverancier.AdresId = Adres.Id INNER JOIN Contact on Leverancier.ContactId = Contact.Id;
+  COMMIT;
+end //
+DELIMITER ;
+
+DROP PROCEDURE IF EXISTS getLeverancierById;
+DELIMITER //
+CREATE PROCEDURE getLeverancierById
+(
+  p_id INT
+)
+BEGIN
+  DECLARE EXIT HANDLER FOR SQLEXCEPTION
+  BEGIN 
+    ROLLBACK;
+    SELECT 'ERROR';
+  end;
+  START TRANSACTION;
+     	SELECT Leverancier.Id as lId, Leverancier.*, Contact.*, Adres.* FROM Leverancier INNER JOIN Adres on Leverancier.AdresId = Adres.Id INNER JOIN Contact on Leverancier.ContactId = Contact.Id WHERE Leverancier.Id = p_id;
+  COMMIT;
+end //
+DELIMITER ;
+
+
+DROP PROCEDURE IF EXISTS deleteLeverancier;
+DELIMITER //
+CREATE PROCEDURE deleteLeverancier
+(
+  p_id INT
+)
+BEGIN
+
+  DECLARE contactId INT unsigned DEFAULT 0;
+  DECLARE adresId INT unsigned DEFAULT 0;
+
+  DECLARE EXIT HANDLER FOR SQLEXCEPTION
+  BEGIN 
+    ROLLBACK;
+    SELECT 'ERROR';
+  end;
+  START TRANSACTION;
+    SET contactId = (SELECT ContactId from Leverancier WHERE Id = p_id);
+    SET adresId = (SELECT AdresId from Leverancier WHERE Id = p_id);
+
+    DELETE FROM Contact WHERE id = contactId;
+    DELETE FROM Adres WHERE id = adresId;
+    DELETE FROM Leverancier WHERE Id = p_id;
+  COMMIT;
+end //
+DELIMITER ;
+
+DROP PROCEDURE IF EXISTS updateLeverancier;
+DELIMITER //
+CREATE PROCEDURE updateLeverancier
+(
+  p_id int,
+  p_bedrijfsnaam varchar(100),
+  p_contactnaam varchar(100),
+  p_contactemail varchar(320),
+  p_contacttelefoonnummer varchar(25),
+  p_straatnaam varchar(100),
+  p_huisnummer int(5),
+  p_toevoeging varchar(4),
+  p_postcode varchar(6),
+  p_plaats varchar(50),
+  p_eerstvolgendelevering date
+)
+begin
+	
+  DECLARE contactId INT unsigned DEFAULT 0;
+  DECLARE adresId INT unsigned DEFAULT 0;
+  DECLARE EXIT HANDLER FOR SQLEXCEPTION
+  BEGIN 
+    ROLLBACK;
+    SELECT 'ERROR';
+  end;
+
+
+  START TRANSACTION;
+    SET contactId = (SELECT ContactId from Leverancier WHERE Id = p_id);
+    SET adresId = (SELECT AdresId from Leverancier WHERE Id = p_id);
+
+    
+
+    UPDATE Contact SET Email = p_contactemail, Telefoonnummer = p_contacttelefoonnummer WHERE Id = contactId;
+    UPDATE Adres SET Straatnaam = p_straatnaam, Huisnummer = p_huisnummer, Toevoeging = p_toevoeging, Postcode = p_postcode, Plaats = p_plaats WHERE Id = AdresId;
+    UPDATE Leverancier SET Bedrijfsnaam = p_bedrijfsnaam, ContactNaam = p_contactnaam, EerstVolgendeLevering = p_eerstvolgendelevering WHERE Id = p_id;
+  COMMIT;
+end //
+DELIMITER ;
+
+
+
+
+DROP PROCEDURE IF EXISTS createLeverancier;
+DELIMITER //
+CREATE PROCEDURE createLeverancier
+(
+  p_bedrijfsnaam varchar(100),
+  p_contactnaam varchar(100),
+  p_contactemail varchar(320),
+  p_contacttelefoonnummer varchar(25),
+  p_straatnaam varchar(100),
+  p_huisnummer int(5),
+  p_toevoeging varchar(4),
+  p_postcode varchar(6),
+  p_plaats varchar(50),
+  p_eerstvolgendelevering date
+)
+begin
+	
+  DECLARE contactId INT unsigned DEFAULT 0;
+  DECLARE adresId INT unsigned DEFAULT 0;
+  DECLARE EXIT HANDLER FOR SQLEXCEPTION
+  BEGIN 
+    ROLLBACK;
+    SELECT 'ERROR';
+  end;
+
+
+  START TRANSACTION;
+    INSERT INTO Contact (Email, Telefoonnummer) VALUES (p_contactemail, p_contacttelefoonnummer);
+    SET contactId = LAST_INSERT_ID();
+
+    INSERT INTO Adres (Straatnaam, Huisnummer, Toevoeging, Postcode, Plaats) VALUES (p_straatnaam, p_huisnummer, p_toevoeging, p_postcode, p_plaats);
+    SET adresId = LAST_INSERT_ID();
+
+    INSERT INTO Leverancier (Bedrijfsnaam, AdresId, ContactNaam, ContactId, EerstVolgendeLevering) VALUES (p_bedrijfsnaam, adresId, p_contactnaam, contactId, p_eerstvolgendelevering);
+  COMMIT;
+end //
+DELIMITER ;
+
