@@ -6,8 +6,11 @@ include APPROOT . "/views/Includes/Navbar.php";
 
 <div class="voedselpakket">
 
+    <?php if (strlen($data['Error'] > 0)): ?>
+        <h2><?= $data['Error'] ?></h2>
+    <?php else: ?>
     <div>
-        <h1>Voedselpakket aanmaken</h1>
+        <h1>Voedselpakket inzien</h1>
         <p><?= $data['Naam'] ?></p>
     </div>
     <div class="info">
@@ -55,25 +58,35 @@ include APPROOT . "/views/Includes/Navbar.php";
                 </p>
             </div>
         </div>
+        <div class="dates">
+            <div class="text red">
+                <p>Datum Samenstelling:</p>
+                <p>Datum Uitgifte:</p>
+            </div>
+            <div class="values">
+                <p><?= $data['Voedselpakket']->DatumSamenstelling ?></p>
+                <p><?= $data['Voedselpakket']->DatumUitgifte ?></p>
+            </div>
+        </div>
     </div>
-    <form action="<?=URLROOT?>/voedselpakket/aanmaken/<?= $data['Klant']->Id ?>" method="post" id="aanmaken">
-        <table>
-            <tr>
-                <th>Naam</th>
-                <th>Categorie</th>
-                <th>Aantal in voorraad</th>
-                <th>Aantal</th>
-            </tr>
-            <?php foreach($data['Producten'] as $product): ?>
-            <tr>
-                <td><?= $product->ProductNaam ?></td>
-                <td><?= $product->Naam ?></td>
-                <td><?= $product->AantalInVoorraad ?></td>
-                <td class="input"><input type="number" name="<?= $product->Id ?>" id="product_<?= $product->Id ?>" min="0" max="<?= $product->AantalInVoorraad ?>" value="<?php if (isset($_POST["$product->Id"])) echo $_POST["$product->Id"]?>"></td>
-            </tr>
-            <?php endforeach; ?>
-        </table>
-        <input type="submit" value="Aanmaken">
-        <p class="red"><?= $data['Error'] ?></p>
-    </form>
+    <table>
+        <tr>
+            <th>Naam</th>
+            <th>Categorie</th>
+            <th>Aantal in voorraad</th>
+            <th>Aantal</th>
+        </tr>
+        <?php foreach($data['Producten'] as $product): ?>
+        <tr>
+            <td><?= $product->ProductNaam ?></td>
+            <td><?= $product->Naam ?></td>
+            <td><?= $product->AantalInVoorraad ?></td>
+            <td><?= $product->Aantal ?></td>
+        </tr>
+        <?php endforeach; ?>
+    </table>
+    <a href="<?= URLROOT . "/voedselpakket/aanpassen/{$data['Id']}"?>"><button>Aanpassen</button></a>
+    <a href="<?= URLROOT . "/voedselpakket/verwijderen/{$data['Id']}"?>"><button>Verwijderen</button></a>
+    <?php endif; ?>
+
 </div>

@@ -16,6 +16,12 @@ class VoedselpakketModel
         return $this->db->single();
     }
 
+    public function getAllVoedselpakketten()
+    {
+        $this->db->query("SELECT voe.DatumSamenstelling, voe.DatumUitgifte, kla.Voornaam, kla.Tussenvoegsel, kla.Achternaam FROM `Voedselpakket` voe INNER JOIN `Klant` kla ON kla.Id = voe.KlantId");
+        return $this->db->resultSet();
+    }
+
     public function getAllergieenPerKlantId($klantId)
     {
         $this->db->query("CALL spGetAllergieenPerKlantId(:klantId)");
@@ -46,6 +52,20 @@ class VoedselpakketModel
         } catch (PDOException $e) {
             throw $e;
         }
+    }
+
+    public function getVoedselpakketById($id)
+    {
+        $this->db->query("CALL spGetVoedselpakketById(:id)");
+        $this->db->bind(":id", $id);
+        return $this->db->single();
+    }
+    
+    public function getProductenByVoedselpakketId($id)
+    {
+        $this->db->query("CALL spGetProductenByVoedselpakketId(:id)");
+        $this->db->bind(":id", $id);
+        return $this->db->resultSet();
     }
 
     public function getProductById($productId)

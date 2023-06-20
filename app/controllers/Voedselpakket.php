@@ -11,11 +11,16 @@ class Voedselpakket extends Controller
 
 	public function index()
 	{
-		$this->view('Voedselpakket/index');
+        $data = ["Voedselpakketten" => $this->voedselpakketModel->getAllVoedselpakketten()];
+		$this->view('Voedselpakket/index', $data);
 	}
 
     public function aanmaken($klantId = null)
     {
+        // klantId is needed to access this page, as this id ties the voedselpakket to the klant. As such, it will redirect the user back to root
+        if (!isset($klantId))
+            header("Location: " . URLROOT);
+
         $error = "";
 
         // if a post has been submitted enter this block
@@ -40,7 +45,7 @@ class Voedselpakket extends Controller
                         $csvString .= ",";
                     $csvString .= $key . ":" . $product;
                 }
-                
+
                 // no products were selected
                 if (strlen($csvString) == 0)
                     $error = "Error: U moet producten selecteren";
@@ -54,10 +59,6 @@ class Voedselpakket extends Controller
                 }
             }
         }
-
-        // klantId is needed to access this page, as this id ties the voedselpakket to the klant. As such, it will redirect the user back to root
-        if (!isset($klantId))
-            header("Location: " . URLROOT);
         
         // Get all necessary information about the klant
         $klant = $this->voedselpakketModel->getKlantPerId($klantId);
@@ -74,6 +75,43 @@ class Voedselpakket extends Controller
             "Error" => $error
         ];
         $this->view('Voedselpakket/aanmaken', $data);
+    }
+
+    public function inzien($id)
+    {
+        $error = "";
+
+        // id is needed to access this page
+        if (!isset($id))
+            header("Location: " . URLROOT);
+        $voedselpakket = $this->voedselpakketModel->getVoedselpakketById($id);
+        if (!$voedselpakket)
+        {
+            $error = "Dit voedselpakket bestaat niet";
+            $data = ["Error" => $error];
+        }
+        else {
+            $voedselpakketProducten = $this->voedselpakketModel->getProductenByVoedselpakketId($id);
+    
+            $klantId = $voedselpakket->KlantId;
+    
+            // Get all necessary information about the klant
+            $klant = $this->voedselpakketModel->getKlantPerId($klantId);
+            $allergieen = $this->voedselpakketModel->getAllergieenPerKlantId($klantId);
+            $wensen = $this->voedselpakketModel->getWensenPerKlantId($klantId);
+    
+            $data = [
+                "Naam" => strlen($klant->Tussenvoegsel) > 0 ? "$klant->Voornaam $klant->Tussenvoegsel $klant->Achternaam" : "$klant->Voornaam $klant->Achternaam",
+                "Klant" => $klant,
+                "Allergieen" => $allergieen,
+                "Wensen" => $wensen,
+                "Producten" => $voedselpakketProducten,
+                "Voedselpakket" => $voedselpakket,
+                "Id" => $id,
+                "Error" => $error
+            ];
+        }
+        $this->view('Voedselpakket/inzien', $data);
     }
 
     public function validateCreateVoedselpakket($post)
