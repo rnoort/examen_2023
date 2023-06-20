@@ -1,0 +1,48 @@
+.voedselpakket {
+  width: 70%;
+}
+.voedselpakket .red {
+  color: red;
+}
+.voedselpakket .info {
+  display: flex;
+  flex-direction: row;
+}
+.voedselpakket .info .people, .voedselpakket .info .wishes, .voedselpakket .info .dates {
+  display: flex;
+  flex-direction: row;
+  column-gap: 1rem;
+  flex-grow: 1;
+}
+.voedselpakket .info .people .text, .voedselpakket .info .people .values, .voedselpakket .info .wishes .text, .voedselpakket .info .wishes .values, .voedselpakket .info .dates .text, .voedselpakket .info .dates .values {
+  display: flex;
+  flex-direction: column;
+}
+.voedselpakket .info .people .text p, .voedselpakket .info .people .values p, .voedselpakket .info .wishes .text p, .voedselpakket .info .wishes .values p, .voedselpakket .info .dates .text p, .voedselpakket .info .dates .values p {
+  margin: 0;
+}
+.voedselpakket table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1rem 0;
+  border: 2px solid black;
+}
+.voedselpakket table tr:nth-child(even) td {
+  background-color: #EEEEEE;
+}
+.voedselpakket table tr td, .voedselpakket table tr th {
+  padding: 3px;
+  border-left: 2px solid black;
+  border-right: 2px solid black;
+}
+.voedselpakket table tr th {
+  background-color: #CCCCCC;
+}
+.voedselpakket table tr td.input {
+  text-align: center;
+}
+.voedselpakket table tr td.input input {
+  width: 2rem;
+}
+
+/*# sourceMappingURL=voedselpakket.css.map */

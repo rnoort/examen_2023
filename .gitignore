@@ -1,2 +1,6 @@
 /app/config/Config.php
 /vendor
+/test
+package-lock.json
+package.json
+
