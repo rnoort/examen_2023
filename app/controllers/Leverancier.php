@@ -70,6 +70,45 @@ class Leverancier extends Controller
             header("location: " . URLROOT . "/leverancier/create?m=s");
         }
     }
+    public function update($id = NULL)
+    {
+        // Clean
+        $_POST = filter_input_array(INPUT_POST);
+        $_GET = filter_input_array(INPUT_GET);
+
+        if($_SERVER["REQUEST_METHOD"] == "GET") 
+        {
+            // Get leverancier
+            $record = $this->model->getLeverancierById($id);
+
+            // Make data object
+            $data = [
+                "post" => $_POST,
+                "record" => $record
+            ];
+
+            // Show create page
+            $this->view('leveranciers/update', $data);
+        } 
+            else if($_SERVER["REQUEST_METHOD"] == "POST")
+        {
+            // Validate
+            if(!isset($_POST["bedrijfsnaam"])) return;
+            if(!isset($_POST["contactnaam"])) return;
+            if(!isset($_POST["email"])) return;
+            if(!isset($_POST["telefoonnummer"])) return;
+            if(!isset($_POST["straatnaam"])) return;
+            if(!isset($_POST["huisnummer"])) return;
+            if(!isset($_POST["postcode"])) return;
+            if(!isset($_POST["plaats"])) return;
+            
+            // Create leverancier
+            $this->model->updateLeverancier($_POST);
+
+            // Send back to overview with a message
+            header("location: " . URLROOT . "/leverancier/update?m=s");
+        }
+    }
 
     public function delete($id = NULL)
     {
