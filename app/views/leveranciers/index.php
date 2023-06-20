@@ -15,7 +15,6 @@
         <a class="bg-green-400 hover:bg-green-500 font-bold px-4 py-2 rounded"
             href="<?= URLROOT . "/leverancier/create" ?>">Toevoegen</a>
     </header>
-
     <div class="p-4">
         <?php if (empty($data["records"])): ?>
             <p>Er staan geen leveranciers in het systeem.</p>
@@ -39,16 +38,16 @@
                             <td>
                                 <?= $record->Straatnaam . " " . $record->Huisnummer . " " . $record->Toevoeging . " " . $record->Postcode . " " . $record->Plaats ?>
                             </td>
-                            <td>
-                                <pre><?= $record->ContactNaam . $record->Email . $record->Telefoonnummer ?></pre>
+                            <td class="break-all">
+                                <?= $record->ContactNaam . $record->Email . $record->Telefoonnummer ?>
                             </td>
                             <td>
                                 <?= $record->EerstVolgendeLevering ?>
                             </td>
 
-                            <td><a class="bg-orange-400 hover:bg-orange-500 font-bold px-4 py-2 rounded"
+                            <td><a class="bg-orange-400 hover:bg-orange-500 font-bold px-4 py-1 p-2 rounded text-black"
                                     href="<?= URLROOT . '/leverancier/update/' . $record->Id ?>">Wijzigen</a></td>
-                            <td><a class="bg-red-400 hover:bg-red-500 font-bold px-4 py-2 rounded"
+                            <td><a class="bg-red-400 hover:bg-red-500 font-bold px-4 py-1 p-2 rounded text-black"
                                     href="<?= URLROOT . '/leverancier/delete/' . $record->Id ?>">Verwijderen</a></td>
                         </tr>
                     <?php endforeach; ?>
