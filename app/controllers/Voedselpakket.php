@@ -114,6 +114,25 @@ class Voedselpakket extends Controller
         $this->view('Voedselpakket/inzien', $data);
     }
 
+    public function verwijderen($id)
+    {
+        // id is needed to access this page
+        if (!isset($id))
+            header("Location: " . URLROOT);
+        $data = ["Id" => $id];
+        $this->view('Voedselpakket/verwijderen', $data);
+    }
+
+    public function definitief($id)
+    {
+        if (!$this->voedselpakketModel->deleteVoedselpakket($id))
+        {
+            header("Location: " . URLROOT . "/voedselpakket/");
+        } else {
+            $error = "Er is iets fout gegaan, probeer het later opnieuw of neem contact op met het beheer";
+        }
+    }
+
     public function validateCreateVoedselpakket($post)
     {
         foreach ($post as $key => $product)

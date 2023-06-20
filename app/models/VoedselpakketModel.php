@@ -74,4 +74,15 @@ class VoedselpakketModel
         $this->db->bind(":productId", $productId);
         return $this->db->single();
     }
+
+    public function deleteVoedselpakket($id)
+    {
+        try {
+            $this->db->query("CALL spDeleteVoedselpakket(:id)");
+            $this->db->bind(":id", $id);
+            return $this->db->single();
+        }   catch (PDOException $e) {
+            throw $e;
+        }
+    }
 }
