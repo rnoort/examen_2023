@@ -9,6 +9,7 @@ Class KlantenModel{
     }
 
 
+    //haalt de klanten uit de database en zet ze in de variabele result
     public function getKlanten(){
         $this->db->query("select 
         Kl.Id,
@@ -25,6 +26,8 @@ Class KlantenModel{
         return $result;
     }
 
+
+    //zet de nieuwe klanten in de database
     public function newKlant($post){
         //CALL insert_persoon_and_contact('test', 'de', 'test', '0687654321', 'test@gmail.com');
         $this->db->query("CALL spCreateKlant(:Voornaam, :Tussenvoegsel, :Achternaam, :AantalVolwassenen, :AantalKinderen, :AantalBabys)");
@@ -37,6 +40,7 @@ Class KlantenModel{
         return $this->db->execute();
     }
 
+    //verwijdert de klanten en alles waar de klanten aan vast zaten
      public function deleteKlanten($id){
         $this->db->query('DELETE FROM KlantAllergie WHERE KlantId = :id');
         $this->db->bind(':id', $id, PDO::PARAM_INT);
@@ -79,6 +83,7 @@ Class KlantenModel{
         return $this->db->single();
     }
 
+    //zet de veranderde data in de database
      public function updateKlant($post)
          {
                //CALL update_person_and_contact(1, 'sjonnie', 'default', 'mol', '06123456', 'sjon@kurk.nl');
