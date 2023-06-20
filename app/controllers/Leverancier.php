@@ -24,6 +24,16 @@ class Leverancier extends Controller
         $this->view('leveranciers/index', $data);
     }
 
+    public function create()
+    {
+        // Make data object
+        $data = [
+        ];
+
+        // Show create page
+        $this->view('leveranciers/create', $data);
+    }
+
     // TESTING
     public function add($numb1, $numb2)
     {
