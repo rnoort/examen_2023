@@ -31,8 +31,7 @@
 
         public function createLeverancier($post)
         {
-            var_dump($post);
-            $this->db->query("CALL createLeverancier(:bedrijfsnaam, :naam, :email, :telefoonnummer, :straatnaam, :huisnummer, :toevoeging, :postcode, :plaats);");
+            $this->db->query("CALL createLeverancier(:bedrijfsnaam, :naam, :email, :telefoonnummer, :straatnaam, :huisnummer, :toevoeging, :postcode, :plaats, :eerstvolgendelevering);");
             $this->db->bind(":bedrijfsnaam", $post["bedrijfsnaam"]);
             $this->db->bind(":naam", $post["contactnaam"]);
             $this->db->bind(":email", $post["email"]);
@@ -42,8 +41,27 @@
             $this->db->bind(":toevoeging", $post["toevoeging"]);
             $this->db->bind(":postcode", $post["postcode"]);
             $this->db->bind(":plaats", $post["plaats"]);
-
+            $this->db->bind(":eerstvolgendelevering", $post["eerstvolgendelevering"] == "" ? null : $post["eerstvolgendelevering"]);
             $this->db->execute();
+        }
+
+        public function updateLeverancier($post)
+        {
+            var_dump($post);
+            $this->db->query("CALL updateLeverancier(:id, :bedrijfsnaam, :naam, :email, :telefoonnummer, :straatnaam, :huisnummer, :toevoeging, :postcode, :plaats, :eerstvolgendelevering);");
+            $this->db->bind(":id", $post["lId"]);
+            $this->db->bind(":bedrijfsnaam", $post["bedrijfsnaam"]);
+            $this->db->bind(":naam", $post["contactnaam"]);
+            $this->db->bind(":email", $post["email"]);
+            $this->db->bind(":telefoonnummer", $post["telefoonnummer"]);
+            $this->db->bind(":straatnaam", $post["straatnaam"]);
+            $this->db->bind(":huisnummer", $post["huisnummer"]);
+            $this->db->bind(":toevoeging", $post["toevoeging"]);
+            $this->db->bind(":postcode", $post["postcode"]);
+            $this->db->bind(":plaats", $post["plaats"]);
+            $this->db->bind(":eerstvolgendelevering", $post["eerstvolgendelevering"] == "" ? null : $post["eerstvolgendelevering"]);
+            var_dump($this->db->single());
+            exit;
 
         }
 
