@@ -1,3 +1,2 @@
-<h1><?= $data['title']; ?></h1>
-
-<p><?= $data['test'] ?></p>
+<h1>Homepage voedselbank maaskantje</h1>
+<a href="<?= URLROOT ?>/klant/">Overzicht klanten</a>
