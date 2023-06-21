@@ -8,6 +8,6 @@
         <link rel="stylesheet" href="<?= URLROOT; ?>/css/voedselpakket.css">
         <link rel="stylesheet" href="<?= URLROOT; ?>/css/klanten.css">
         <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-    <title>Naam website</title>
+    <title>Voedselbank Maaskantje</title>
 </head>
 <body>
