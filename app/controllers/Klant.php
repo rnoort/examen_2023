@@ -27,4 +27,21 @@ class Klant extends Controller
         $data = ["Klanten" => $klant, "Postcodes" => $this->klantModel->getAllPostcodes()];
 		$this->view('Klant/index', $data);
 	}
+
+    public function details($id = null)
+    {
+        // no id is given in url
+        if (!$id)
+            header("Location: " . URLROOT);
+
+        $klant = $this->klantModel->getKlantById($id);
+
+        // klant id does not exist
+        if (!$klant)
+            header("Location: " . URLROOT);
+
+        $data = ["Klant" => $klant, "Id" => $id];
+
+		$this->view('Klant/details', $data);
+    }
 }

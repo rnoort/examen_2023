@@ -7,7 +7,7 @@ include APPROOT . "/views/Includes/Navbar.php";
 <div class="klanten">
     <div class="row">
         <div class="col">
-            <a href="<?= URLROOT ?>/klant"><h1>Overzicht Klanten</h1></a>
+            <h1>Overzicht Klanten</h1>
         </div>
         <div class="col">
             <form action="<?= URLROOT ?>/klant" method="post">
@@ -26,7 +26,7 @@ include APPROOT . "/views/Includes/Navbar.php";
                         </option>
                     <?php endforeach; ?>
                 </select>
-                <button type="submit">Toon Klanten</button>                
+                <button type="submit" class="gray">Toon Klanten</button>                
             </form>
         </div>
     </div>
@@ -49,7 +49,7 @@ include APPROOT . "/views/Includes/Navbar.php";
                 <td><?= $klant->Mobiel ?></td>
                 <td><?= "$klant->Straat $klant->Huisnummer $klant->Toevoeging" ?></td>
                 <td><?= $klant->Woonplaats ?></td>
-                <td class="center"><a href="<?= URLROOT ?>/klant/wijzigen/<?= $klant->Id ?>"><i class='bx bx-notepad'></i></a></td>
+                <td class="center"><a href="<?= URLROOT ?>/klant/details/<?= $klant->Id ?>"><i class='bx bx-notepad'></i></a></td>
             </tr>
         <?php endforeach; ?>
         <?php else: ?>
@@ -58,7 +58,7 @@ include APPROOT . "/views/Includes/Navbar.php";
             </tr>
         <?php endif; ?>
     </table>
-    <div class="home">
-        <a href="<?= URLROOT ?>"><button>home</button></a>
+    <div class="flex-end">
+        <a href="<?= URLROOT ?>"><button class="blue">home</button></a>
     </div>
 </div>

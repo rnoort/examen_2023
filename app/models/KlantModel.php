@@ -27,4 +27,11 @@ class KlantModel
         $this->db->query("SELECT * FROM vwGetAllPostcodes");
         return $this->db->resultSet();
     }
+
+    public function getKlantById($id)
+    {
+        $this->db->query("SELECT * FROM vwGetKlant WHERE Id = :id");
+        $this->db->bind(":id", $id);
+        return $this->db->single();
+    }
 }

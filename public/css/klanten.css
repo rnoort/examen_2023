@@ -17,6 +17,7 @@
 .klanten .row .col {
   display: flex;
   align-items: center;
+  column-gap: 1rem;
 }
 .klanten .row .col form {
   display: flex;

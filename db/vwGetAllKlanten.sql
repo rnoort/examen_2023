@@ -4,7 +4,7 @@ DROP VIEW IF EXISTS vwGetAllKlanten;
 
 CREATE VIEW vwGetAllKlanten AS
 SELECT 
-     gez.Id
+     per.Id
     ,gez.Naam
     ,per.Voornaam
     ,per.Tussenvoegsel
