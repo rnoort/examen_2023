@@ -21,12 +21,12 @@ CREATE TABLE `Contact` (
   `Opmerking` Varchar(255),
   `DatumAangemaakt` Datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `DatumGewijzigd` Datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-);
+) ENGINE = InnoDB;
 
 CREATE TABLE `Gezin` (
   `Id` int PRIMARY KEY AUTO_INCREMENT,
   `Naam` Varchar(40) NOT NULL,
-  `Code` Varchar(5) NOT NULL,
+  `Code` Varchar(5) NOT NULL UNIQUE,
   `Omschrijving` Varchar(20) NOT NULL,
   `AantalVolwassenen` Int NOT NULL,
   `AantalKinderen` Int NOT NULL,
@@ -36,7 +36,7 @@ CREATE TABLE `Gezin` (
   `Opmerking` Varchar(255),
   `DatumAangemaakt` Datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `DatumGewijzigd` Datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-);
+) ENGINE = InnoDB;
 
 CREATE TABLE `ContactPerGezin` (
   `Id` int PRIMARY KEY AUTO_INCREMENT,
@@ -46,7 +46,7 @@ CREATE TABLE `ContactPerGezin` (
   `Opmerking` Varchar(255),
   `DatumAangemaakt` Datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `DatumGewijzigd` Datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-);
+) ENGINE = InnoDB;
 
 CREATE TABLE `Persoon` (
   `Id` int PRIMARY KEY AUTO_INCREMENT,
@@ -61,7 +61,7 @@ CREATE TABLE `Persoon` (
   `Opmerking` Varchar(255),
   `DatumAangemaakt` Datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `DatumGewijzigd` Datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-);
+) ENGINE = InnoDB;
 
 ALTER TABLE `ContactPerGezin` ADD FOREIGN KEY (`GezinId`) REFERENCES `Gezin` (`Id`);
 

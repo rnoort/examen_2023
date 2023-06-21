@@ -47,6 +47,17 @@
 .klanten table tr td.center, .klanten table tr th.center {
   text-align: center;
 }
+.klanten table tr td i, .klanten table tr th i {
+  color: #0000EE;
+}
+.klanten table tr td div.error, .klanten table tr th div.error {
+  padding: 0.5rem;
+  margin-bottom: 1rem;
+  text-align: center;
+  background-color: #fff3cd;
+  border-radius: 5px;
+  color: #6a520a;
+}
 .klanten .home {
   display: flex;
   justify-content: flex-end;

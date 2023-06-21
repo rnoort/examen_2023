@@ -45,6 +45,17 @@
                 &.center {
                     text-align: center;
                 }
+                i {
+                    color: #0000EE;
+                }
+                div.error {
+                    padding: 0.5rem;
+                    margin-bottom: 1rem;
+                    text-align: center;
+                    background-color: #fff3cd;
+                    border-radius: 5px;
+                    color: #6a520a;
+                }
             }
         }
     }

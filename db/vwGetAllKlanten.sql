@@ -1,5 +1,7 @@
 USE `Examendrie`;
 
+DROP VIEW IF EXISTS vwGetAllKlanten;
+
 CREATE VIEW vwGetAllKlanten AS
 SELECT 
      gez.Id
@@ -13,6 +15,7 @@ SELECT
     ,con.Huisnummer
     ,con.Toevoeging
     ,con.Woonplaats
+    ,con.Postcode
 FROM `Contact` con 
 INNER JOIN `ContactPerGezin` cge 
 ON con.Id = cge.ContactId 
