@@ -59,6 +59,6 @@ include APPROOT . "/views/Includes/Navbar.php";
         <?php endif; ?>
     </table>
     <div class="flex-end">
-        <a href="<?= URLROOT ?>"><button class="blue">home</button></a>
+        <a href="<?= URLROOT ?>" class="blue">home</a>
     </div>
 </div>

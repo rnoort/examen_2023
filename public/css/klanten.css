@@ -51,27 +51,81 @@
   border-radius: 5px;
   color: #6a520a;
 }
+.klanten div.message {
+  border: 1px solid rgba(128, 128, 128, 0.5);
+  border-radius: 5px;
+  padding: 1rem;
+  margin-right: 0.25rem;
+}
+.klanten div.message.error {
+  background-color: #f8d7da;
+  color: #8a5456;
+}
+.klanten div.message.success {
+  background-color: #d1e7dd;
+  color: #346357;
+}
+.klanten form#wijzigen {
+  display: flex;
+  flex-direction: column;
+  row-gap: 1rem;
+}
+.klanten form#wijzigen table tr {
+  display: flex;
+  flex-direction: row;
+}
+.klanten form#wijzigen table tr th, .klanten form#wijzigen table tr td {
+  display: flex;
+  border: none;
+  position: relative;
+  flex-direction: column;
+}
+.klanten form#wijzigen table tr th p, .klanten form#wijzigen table tr td p {
+  margin: 0.5rem 0 0.25rem 0;
+  color: red;
+}
+.klanten form#wijzigen table tr th:first-child, .klanten form#wijzigen table tr td:first-child {
+  width: 30%;
+}
+.klanten form#wijzigen table tr th:last-child, .klanten form#wijzigen table tr td:last-child {
+  flex-grow: 1;
+}
+.klanten form#wijzigen table tr th input, .klanten form#wijzigen table tr td input {
+  padding: 0.3rem 0.5rem;
+  border-radius: 5px;
+  border: 1px solid rgba(128, 128, 128, 0.5);
+}
+.klanten form#wijzigen table tr th div.float, .klanten form#wijzigen table tr td div.float {
+  position: absolute;
+  right: 0.75rem;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.klanten form#wijzigen table tr th div.float i, .klanten form#wijzigen table tr td div.float i {
+  color: #229788;
+}
 .klanten .flex-end {
   display: flex;
   justify-content: flex-end;
 }
-.klanten button {
+.klanten button, .klanten a {
   padding: 0.5rem;
   border-radius: 5px;
   border: none;
   cursor: pointer;
+  text-decoration: none;
   color: white;
 }
-.klanten button.blue {
-  background-color: blue;
+.klanten button.blue, .klanten a.blue {
+  background-color: #0d6efd;
 }
-.klanten button.blue:hover {
+.klanten button.blue:hover, .klanten a.blue:hover {
   background-color: rgb(0, 0, 188);
 }
-.klanten button.gray {
+.klanten button.gray, .klanten a.gray {
   background-color: gray;
 }
-.klanten button.gray:hover {
+.klanten button.gray:hover, .klanten a.gray:hover {
   background-color: rgb(81, 81, 81);
 }
 

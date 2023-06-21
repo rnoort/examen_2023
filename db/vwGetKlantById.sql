@@ -11,13 +11,13 @@ SELECT
     ,per.Geboortedatum
     ,per.TypePersoon
     ,per.IsVertegenwoordiger
-    ,con.Email
-    ,con.Mobiel
     ,con.Straat
     ,con.Huisnummer
     ,con.Toevoeging
-    ,con.Woonplaats
     ,con.Postcode
+    ,con.Woonplaats
+    ,con.Email
+    ,con.Mobiel
 FROM `Persoon` per
 INNER JOIN `Gezin` gez
 ON per.GezinId = gez.Id

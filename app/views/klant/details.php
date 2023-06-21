@@ -22,11 +22,11 @@ include APPROOT . "/views/Includes/Navbar.php";
     </table>
     <div class="row">
         <div class="col">
-            <a href="<?= URLROOT ?>/klant/wijzig/"<?= $data['Id'] ?>><button class="blue">Wijzig</button></a>
+            <a href="<?= URLROOT ?>/klant/wijzigen/<?= $data['Id'] ?>" class="blue">Wijzig</a>
         </div>
         <div class="col">
-            <a href="<?= URLROOT ?>/klant"><button class="blue">terug</button></a>
-            <a href="<?= URLROOT ?>"><button class="blue">home</button></a>
+            <a href="<?= URLROOT ?>/klant" class="blue">terug</a>
+            <a href="<?= URLROOT ?>" class="blue">home</a>
         </div>
     </div>
 </div>
