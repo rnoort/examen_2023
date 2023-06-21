@@ -5,6 +5,11 @@
   margin-top: 1rem;
   width: 80%;
 }
+.klanten h1 {
+  text-decoration: underline;
+  color: green;
+  margin: 0;
+}
 .klanten .row {
   display: flex;
   justify-content: space-between;
@@ -22,19 +27,6 @@
   padding: 0.5rem;
   border-radius: 5px;
   border: 1px solid rgba(128, 128, 128, 0.5);
-}
-.klanten .row .col form button {
-  background-color: gray;
-}
-.klanten .row .col form button:hover {
-  background-color: rgb(81, 81, 81);
-}
-.klanten .row .col a {
-  text-decoration-color: green;
-}
-.klanten .row .col a h1 {
-  color: green;
-  margin: 0;
 }
 .klanten table {
   border-collapse: collapse;
@@ -58,15 +50,9 @@
   border-radius: 5px;
   color: #6a520a;
 }
-.klanten .home {
+.klanten .flex-end {
   display: flex;
   justify-content: flex-end;
-}
-.klanten .home button {
-  background-color: blue;
-}
-.klanten .home button:hover {
-  background-color: rgb(0, 0, 188);
 }
 .klanten button {
   padding: 0.5rem;
@@ -74,6 +60,18 @@
   border: none;
   cursor: pointer;
   color: white;
+}
+.klanten button.blue {
+  background-color: blue;
+}
+.klanten button.blue:hover {
+  background-color: rgb(0, 0, 188);
+}
+.klanten button.gray {
+  background-color: gray;
+}
+.klanten button.gray:hover {
+  background-color: rgb(81, 81, 81);
 }
 
 /*# sourceMappingURL=klanten.css.map */
