@@ -7,7 +7,7 @@ class Landingpages extends Controller
         $sum = $this->add(2, 2);
         
         $data = [
-            'title' => "testing unittests",
+            'title' => "Homepage Voedselbank Maaskantje",
             'test' => $sum
         ];
 
@@ -18,8 +18,6 @@ class Landingpages extends Controller
     public function add($numb1, $numb2)
     {
         $sum = $numb1 + $numb2;
-
-        return $sum;
     }
 
 }
