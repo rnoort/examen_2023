@@ -122,7 +122,6 @@ INSERT INTO `Persoon` (`GezinId`, `Voornaam`, `Tussenvoegsel`, `Achternaam`, `Ge
 (6, "Hanna", "van der", "Berg", "1999-09-09", "Klant", 1);
 
 
-
 DROP VIEW IF EXISTS vwGetAllKlanten;
 
 CREATE VIEW vwGetAllKlanten AS
@@ -187,6 +186,7 @@ ON cge.GezinId = gez.Id
 INNER JOIN `Contact` con
 ON con.Id = cge.ContactId;
 
+
 DROP PROCEDURE IF EXISTS spUpdateKlant;
 
 DELIMITER //
@@ -241,4 +241,3 @@ BEGIN
         WHERE per.Id = _id;
         COMMIT;
 END; //
-

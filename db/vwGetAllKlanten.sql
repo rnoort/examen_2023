@@ -21,10 +21,5 @@ INNER JOIN `ContactPerGezin` cge
 ON con.Id = cge.ContactId 
 INNER JOIN `Gezin` gez 
 ON cge.GezinId = gez.Id 
-INNER JOIN (
-    SELECT 
-        * 
-    FROM `Persoon` 
-    WHERE IsVertegenwoordiger = 1
-) per 
+INNER JOIN `Persoon` per 
 ON gez.Id = per.GezinId;

@@ -101,8 +101,50 @@ class Klant extends Controller
                 $data[$key . "Error"] = "Veld mag niet leeg zijn";
         }
 
+        // checks for valid email
+        if ((!filter_var($post['email'], FILTER_VALIDATE_EMAIL)))
+            $data['emailError'] = "Het e-mailadres is niet geldig";
+
+        // checks whether the phone number is valid, must start with '+31 ' and then have 8-10 numbers
+        // +31 82947291
+        // +31 62147293
+        if (!preg_match('/^\+31 (\d){8,10}$/', $post['mobiel']))
+            $data['mobielError'] = "Mobiele nummers moeten met '+31 ' beginnen en daarna 8-10 cijfers bevatten";
+
+        if ($post['geboortedatum'] > date("Y-m-d"))
+            $data['geboortedatumError'] = "Geboortedatum kan niet in de toekomst zijn";
+
         // all postcodes in Maaskantje according to google
         $maaskantjePostcodes = ['5271TH', '5271TJ', '5271XT', '5271XV', '5271ZD', '5271ZE', '5271ZG', '5271ZH'];
+
+        // checks for most fields for length limit breaches
+        if (strlen($post['voornaam']) > 30)
+            $data['voornaamError'] = "Voornaam mag niet meer dan 30 karakters bevatten";
+
+        if (strlen($post['achternaam']) > 30)
+            $data['achternaamError'] = "Achternaam mag niet meer dan 30 karakters bevatten";
+
+        if (strlen($post['tussenvoegsel']) > 10)
+            $data['tussenvoegselError'] = "Tussenvoegsel mag niet meer dan 10 karakters bevatten";
+
+        if (strlen($post['straatnaam']) > 50)
+            $data['straatnaamError'] = "Straatnaam mag niet meer dan 50 karakters bevatten";
+
+        if (strlen($post['toevoeging']) > 3)
+            $data['toevoegingError'] = "Toevoeging mag niet meer dan 3 karakters bevatten";
+
+        if (strlen($post['woonplaats']) > 50)
+            $data['woonplaatsError'] = "Woonplaats mag niet meer dan 50 karakters bevatten";
+
+        if (strlen($post['postcode']) > 6)
+            $data['postcodeError'] = "Postcode mag niet meer dan 6 karakters bevatten";
+
+        if (strlen($post['email']) > 320)
+            $data['emailError'] = "Email mag niet meer dan 320 karakters bevatten";
+
+        if (strlen($post['mobiel']) > 15)
+            $data['mobielError'] = "Mobiel mag niet meer dan 15 karakters bevatten";
+
 
         // postcode checks whether user input is inside Maaskantje
         if (!in_array($post['postcode'], $maaskantjePostcodes))
