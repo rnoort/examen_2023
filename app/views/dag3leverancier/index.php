@@ -29,6 +29,6 @@
         </tbody>
     </table>
 </div>
-<button type="button" ">Click Me!</button>
+<button href="/landingpages/home">Click Me!</button>
 
 <?php require(APPROOT . '/views/includes/Footer.php');?>

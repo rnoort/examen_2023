@@ -59,6 +59,6 @@ include APPROOT . "/views/Includes/Navbar.php";
         <?php endif; ?>
     </table>
     <div class="flex-end">
-        <a href="<?= URLROOT ?>" class="blue">home</a>
+        <a href="/landingpages/index"<?= URLROOT ?>" class="blue">home</a>
     </div>
 </div>
