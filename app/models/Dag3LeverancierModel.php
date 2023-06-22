@@ -68,7 +68,7 @@ class Dag3LeverancierModel
         try
         {
             $this->db->query('SELECT 	
-                                lev.Id,
+                                pro.Id,
                                 pro.Naam,
                                 pro.SoortAllergie,
                                 pro.Barcode,
@@ -102,6 +102,32 @@ class Dag3LeverancierModel
             return $this->db->single(); // Retourneer het resultaat van de query als een enkele rij
         }
         catch(PDOException $e) {
+            echo "Error: " . $e->getMessage();
+        }
+    }
+
+    public function getHoudbaarheidsDatum($id){
+        $this->db->query('SELECT 
+                        Id, 
+                        Houdbaarheidsdatum
+                        from product 
+                        where Id = :id');
+        $this->db->bind(':id', $id, PDO::PARAM_INT);
+        return $this->db->single();
+    }
+
+    public function updateProduct($post, $id)
+    {
+        try
+        {
+            $this->db->query(
+                           'UPDATE `product`		
+                            SET Houdbaarheidsdatum = :datum
+                            WHERE Id = :id');
+            $this->db->bind(':id', $id, PDO::PARAM_INT);
+            $this->db->bind(':datum', $post['datum'], PDO::PARAM_STR); 
+            return $this->db->execute();
+        } catch(PDOException $e) {
             echo "Error: " . $e->getMessage();
         }
     }

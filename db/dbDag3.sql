@@ -121,6 +121,7 @@ INSERT INTO `Persoon` (`GezinId`, `Voornaam`, `Tussenvoegsel`, `Achternaam`, `Ge
 (5, "Simeon", "de", "Jong", "2018-05-23", "Klant", 0),
 (6, "Hanna", "van der", "Berg", "1999-09-09", "Klant", 1);
 
+
 DROP VIEW IF EXISTS vwGetAllKlanten;
 
 CREATE VIEW vwGetAllKlanten AS

@@ -49,7 +49,7 @@
                         class="focus:ring-blue-500 focus:border-blue-500 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded"
                         required>
                     <label for="huisnummer" class="block mb-2 text-sm font-medium text-gray-900">Huisnumer</label>
-                    <input name="huisnummer" type="number" id="huisnummer" max="5"
+                    <input name="huisnummer" type="number" id="huisnummer"
                         class="focus:ring-blue-500 focus:border-blue-500 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded"
                         required>
                     <label for="toevoeging" class="block mb-2 text-sm font-medium text-gray-900">Toevoeging</label>
