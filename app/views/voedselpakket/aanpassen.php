@@ -7,7 +7,7 @@ include APPROOT . "/views/Includes/Navbar.php";
 <div class="voedselpakket">
 
     <div>
-        <h1>Voedselpakket aanmaken</h1>
+        <h1>Voedselpakket aanpassen</h1>
         <p><?= $data['Naam'] ?></p>
     </div>
     <form action="<?=URLROOT?>/voedselpakket/aanpassen/<?= $data['Id'] ?>" method="post" id="aanpassen">

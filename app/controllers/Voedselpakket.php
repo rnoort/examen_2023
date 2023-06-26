@@ -165,6 +165,21 @@ class Voedselpakket extends Controller
                 // validation here!
                 $error = $this->validateUpdateVoedselpakket($_POST);
 
+                // loops through all the post inputs and creates a comma separated string so it can later be put in the db in 1 stored procedure
+                $csvString = "";
+                foreach ($_POST as $key => $product)
+                {
+                    if (strlen($product) == 0)
+                        continue;
+                    if ($product == 0)
+                        continue;
+                    if (strlen($csvString) > 0)
+                        $csvString .= ",";
+                    $csvString .= $key . ":" . $product;
+                }
+
+                var_dump($csvString);
+
                 if (isset($_POST['uitgifte']))
                 {
                     if ($_POST['uitgifte'] != '')
