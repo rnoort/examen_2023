@@ -78,7 +78,8 @@ Class KlantenModel{
 	    Kl.AantalKinderen,
         Kl.AantalBabys
         
-        from Klant as Kl");
+        from Klant as Kl
+        WHERE Kl.Id = :id");
         $this->db->bind(':id', $id, PDO::PARAM_INT);
         return $this->db->single();
     }
