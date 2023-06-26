@@ -11,7 +11,7 @@ class Klanten extends Controller
     }
 
      public function index(){
-        //zorgt ervoor dat de klanten zichtbaar zijn op de website
+        
      $result = $this->KlantenModel->getKlanten();
         $rows = '';
         foreach ($result as $value) {
@@ -60,7 +60,6 @@ class Klanten extends Controller
         }
           
     }
-
 
     public function delete($id){
         if($this->KlantenModel->deleteKlanten($id)){
