@@ -335,6 +335,9 @@ INSERT INTO `KlantWens` (`KlantId`, `WensId`) VALUES
 (2, 5),
 (3, 4);
 
+CREATE VIEW vwGetAvailableProducten AS
+SELECT pro.Id, pro.ProductNaam, pro.AantalInVoorraad, cat.Naam  FROM `Product` pro INNER JOIN `Categorie` cat ON cat.Id = pro.CategorieId WHERE pro.AantalInVoorraad > 0;
+
 
 DROP PROCEDURE IF EXISTS getLeveranciers;
 DELIMITER //
@@ -756,6 +759,3 @@ BEGIN
         UPDATE `Voedselpakket` SET `DatumUitgifte` = _date WHERE `Id` = _id;
         COMMIT;
 END; //
-
-CREATE VIEW vwGetAvailableProducten AS
-SELECT pro.Id, pro.ProductNaam, pro.AantalInVoorraad, cat.Naam  FROM `Product` pro INNER JOIN `Categorie` cat ON cat.Id = pro.CategorieId WHERE pro.AantalInVoorraad > 0;

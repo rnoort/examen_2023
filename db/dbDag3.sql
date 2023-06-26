@@ -186,6 +186,8 @@ ON cge.GezinId = gez.Id
 INNER JOIN `Contact` con
 ON con.Id = cge.ContactId;
 
+-- stored procedures and views below VV
+
 
 DROP PROCEDURE IF EXISTS spUpdateKlant;
 
@@ -207,9 +209,6 @@ CREATE PROCEDURE spUpdateKlant
     _mobiel         Varchar(15)
 
 )
-
-
--- stored procedures and views below VV
 
 BEGIN
 	DECLARE EXIT HANDLER FOR SQLEXCEPTION
