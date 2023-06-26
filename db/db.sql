@@ -419,9 +419,6 @@ CREATE PROCEDURE updateLeverancier
   p_eerstvolgendelevering date
 )
 begin
-	
-  DECLARE contactId INT unsigned DEFAULT 0;
-  DECLARE adresId INT unsigned DEFAULT 0;
   DECLARE EXIT HANDLER FOR SQLEXCEPTION
   BEGIN 
     ROLLBACK;
@@ -430,13 +427,8 @@ begin
 
 
   START TRANSACTION;
-    SET contactId = (SELECT ContactId from Leverancier WHERE Id = p_id);
-    SET adresId = (SELECT AdresId from Leverancier WHERE Id = p_id);
-
-    
-
-    UPDATE Contact SET Email = p_contactemail, Telefoonnummer = p_contacttelefoonnummer WHERE Id = contactId;
-    UPDATE Adres SET Straatnaam = p_straatnaam, Huisnummer = p_huisnummer, Toevoeging = p_toevoeging, Postcode = p_postcode, Plaats = p_plaats WHERE Id = AdresId;
+    UPDATE Contact SET Email = p_contactemail, Telefoonnummer = p_contacttelefoonnummer WHERE Id = (SELECT ContactId from Leverancier WHERE Id = p_id);
+    UPDATE Adres SET Straatnaam = p_straatnaam, Huisnummer = p_huisnummer, Toevoeging = p_toevoeging, Postcode = p_postcode, Plaats = p_plaats WHERE Id = (SELECT AdresId from Leverancier WHERE Id = p_id);
     UPDATE Leverancier SET Bedrijfsnaam = p_bedrijfsnaam, ContactNaam = p_contactnaam, EerstVolgendeLevering = p_eerstvolgendelevering WHERE Id = p_id;
   COMMIT;
 end //
