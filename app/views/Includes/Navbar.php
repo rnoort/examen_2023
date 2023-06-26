@@ -31,7 +31,7 @@
                 <a class="nav-link" href="/leverancier/">Leverancier</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/voedselpakket/">Voeselpakket</a>
+                <a class="nav-link" href="/voedselpakket/">Voedselpakket</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="#">Allergie</a>

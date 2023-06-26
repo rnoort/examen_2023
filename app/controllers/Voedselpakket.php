@@ -11,7 +11,15 @@ class Voedselpakket extends Controller
 
 	public function index()
 	{
-        $data = ["Voedselpakketten" => $this->voedselpakketModel->getAllVoedselpakketten()];
+        if ($_SERVER["REQUEST_METHOD"] == "POST")
+        {
+			$_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        
+            if (isset($_POST['persoon']))
+                header("Location: " . URLROOT . "/voedselpakket/aanmaken/{$_POST['persoon']}");
+        }
+
+        $data = ["Voedselpakketten" => $this->voedselpakketModel->getAllVoedselpakketten(), "Klanten" => $this->voedselpakketModel->getAllKlanten()];
 		$this->view('Voedselpakket/index', $data);
 	}
 
@@ -67,7 +75,7 @@ class Voedselpakket extends Controller
 
         $producten = $this->voedselpakketModel->getAvailableProducten();
         $data = [
-            "Naam" => strlen($klant->Tussenvoegsel) > 0 ? "$klant->Voornaam $klant->Tussenvoegsel $klant->Achternaam" : "$klant->Voornaam $klant->Achternaam",
+            "Naam" => isset($klant->Tussenvoegsel) ? "$klant->Voornaam $klant->Tussenvoegsel $klant->Achternaam" : "$klant->Voornaam $klant->Achternaam",
             "Klant" => $klant,
             "Allergieen" => $allergieen,
             "Wensen" => $wensen,
@@ -103,7 +111,7 @@ class Voedselpakket extends Controller
             $wensen = $this->voedselpakketModel->getWensenPerKlantId($klantId);
     
             $data = [
-                "Naam" => strlen($klant->Tussenvoegsel) > 0 ? "$klant->Voornaam $klant->Tussenvoegsel $klant->Achternaam" : "$klant->Voornaam $klant->Achternaam",
+                "Naam" => isset($klant->Tussenvoegsel) ? "$klant->Voornaam $klant->Tussenvoegsel $klant->Achternaam" : "$klant->Voornaam $klant->Achternaam",
                 "Klant" => $klant,
                 "Allergieen" => $allergieen,
                 "Wensen" => $wensen,
@@ -154,8 +162,6 @@ class Voedselpakket extends Controller
             $data = ["Error" => $error];
         }
         else {
-            // gets all products with the amounts in this voedselpakket but also all the products that are not in this voedselpakket 
-            $voedselpakketProducten = $this->voedselpakketModel->getAllProductenByVoedselpakketId($id);
 
             // if a post has been submitted enter this block
 		    if ($_SERVER["REQUEST_METHOD"] == "POST")
@@ -165,29 +171,34 @@ class Voedselpakket extends Controller
                 // validation here!
                 $error = $this->validateUpdateVoedselpakket($_POST);
 
-                // loops through all the post inputs and creates a comma separated string so it can later be put in the db in 1 stored procedure
-                $csvString = "";
-                foreach ($_POST as $key => $product)
+                if (strlen($error) == 0)
                 {
-                    if (strlen($product) == 0)
-                        continue;
-                    if ($product == 0)
-                        continue;
-                    if (strlen($csvString) > 0)
-                        $csvString .= ",";
-                    $csvString .= $key . ":" . $product;
-                }
-
-                var_dump($csvString);
-
-                if (isset($_POST['uitgifte']))
-                {
-                    if ($_POST['uitgifte'] != '')
+                    // loops through all the post inputs and creates a comma separated string so it can later be put in the db in 1 stored procedure
+                    $csvString = "";
+                    foreach ($_POST as $key => $product)
                     {
-                        $this->voedselpakketModel->updateVoedselpakket($_POST, $id);
+                        // uitgifte should not be put in th csv
+                        if ($key != 'uitgifte')
+                        {
+                            // first variable in the csv should not be started with a comma
+                            if (strlen($csvString) > 0)
+                                $csvString .= ",";
+                            // if there's nothing in the form value, insert a 0 in the csv
+                            if (strlen($product) == 0)
+                                $csvString .= $key . ":0";
+                            else
+                                $csvString .= $key . ":" . $product;
+                        }
                     }
+    
+                    $this->voedselpakketModel->updateVoedselpakket($_POST, $csvString, $id);
+    
+                    $voedselpakket = $this->voedselpakketModel->getVoedselpakketById($id);
                 }
             }
+
+            // gets all products with the amounts in this voedselpakket but also all the products that are not in this voedselpakket 
+            $voedselpakketProducten = $this->voedselpakketModel->getAllProductenByVoedselpakketId($id);
 
             $klantId = $voedselpakket->KlantId;
     
@@ -197,7 +208,7 @@ class Voedselpakket extends Controller
             $wensen = $this->voedselpakketModel->getWensenPerKlantId($klantId);
     
             $data = [
-                "Naam" => strlen($klant->Tussenvoegsel) > 0 ? "$klant->Voornaam $klant->Tussenvoegsel $klant->Achternaam" : "$klant->Voornaam $klant->Achternaam",
+                "Naam" => isset($klant->Tussenvoegsel) > 0 ? "$klant->Voornaam $klant->Tussenvoegsel $klant->Achternaam" : "$klant->Voornaam $klant->Achternaam",
                 "Klant" => $klant,
                 "Allergieen" => $allergieen,
                 "Wensen" => $wensen,

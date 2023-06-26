@@ -18,7 +18,7 @@ class VoedselpakketModel
 
     public function getAllVoedselpakketten()
     {
-        $this->db->query("SELECT voe.DatumSamenstelling, voe.DatumUitgifte, kla.Voornaam, kla.Tussenvoegsel, kla.Achternaam FROM `Voedselpakket` voe INNER JOIN `Klant` kla ON kla.Id = voe.KlantId");
+        $this->db->query("SELECT voe.DatumSamenstelling, voe.DatumUitgifte, kla.Voornaam, kla.Tussenvoegsel, kla.Achternaam, voe.Id FROM `Voedselpakket` voe INNER JOIN `Klant` kla ON kla.Id = voe.KlantId");
         return $this->db->resultSet();
     }
 
@@ -82,13 +82,14 @@ class VoedselpakketModel
         return $this->db->single();
     }
 
-    public function updateVoedselpakket($post, $id)
+    public function updateVoedselpakket($post, $csvString, $id)
     {
         try {
-            $this->db->query("CALL spUpdateVoedselpakket(:uitgifte, :id)");
-            $this->db->bind(":uitgifte", $post['uitgifte']);
+            $this->db->query("CALL spUpdateVoedselpakket(:csvString, :uitgifte, :id)");
+            $this->db->bind(":csvString", $csvString);
+            $this->db->bind(":uitgifte", isset($_POST['uitgifte']) ? ($_POST['uitgifte'] == '' ? NULL : $post['uitgifte']) : NULL);
             $this->db->bind(":id", $id);
-        return $this->db->single();
+            return $this->db->single();
         } catch (PDOException $e) {
             throw $e;
         }
@@ -103,5 +104,11 @@ class VoedselpakketModel
         } catch (PDOException $e) {
             throw $e;
         }
+    }
+
+    public function getAllKlanten()
+    {
+        $this->db->query("SELECT Voornaam, Tussenvoegsel, Achternaam, Id FROM `Klant`");
+        return $this->db->resultSet();
     }
 }

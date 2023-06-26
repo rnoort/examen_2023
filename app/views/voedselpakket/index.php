@@ -20,4 +20,12 @@ include APPROOT . "/views/Includes/Navbar.php";
         </tr>
         <?php endforeach; ?>
     </table>
+    <form action="<?= URLROOT . "/voedselpakket/" ?>" method="post">
+        <select name="persoon" id="persoon">
+            <?php foreach($data['Klanten'] as $klant): ?>
+                <option value="<?= $klant->Id ?>"><?= isset($klant->Tussenvoegsel) ? "$klant->Voornaam $klant->Tussenvoegsel $klant->Achternaam" : "$klant->Voornaam $klant->Achternaam" ?></option>
+            <?php endforeach; ?>
+        </select>
+        <a href="<?= URLROOT . "/voedselpakket/aanmaken/"?>"><button>Voedselpakket Aanmaken</button></a>
+    </form>
 </div>
