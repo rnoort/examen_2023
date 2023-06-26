@@ -87,7 +87,7 @@ class VoedselpakketModel
         try {
             $this->db->query("CALL spUpdateVoedselpakket(:csvString, :uitgifte, :id)");
             $this->db->bind(":csvString", $csvString);
-            $this->db->bind(":uitgifte", isset($_POST['uitgifte']) ? ($_POST['uitgifte'] == '' ? NULL : $post['uitgifte']) : NULL);
+            $this->db->bind(":uitgifte", $_POST['uitgifte'] == '' ? NULL : $post['uitgifte']);
             $this->db->bind(":id", $id);
             return $this->db->single();
         } catch (PDOException $e) {

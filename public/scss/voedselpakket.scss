@@ -1,55 +1,57 @@
 .voedselpakket {
-    width: 70%;
-    .red {
-        color: red;
-    }
-    .info {
+  width: 70%;
+  .red {
+    color: red;
+  }
+  .info {
+    display: flex;
+    flex-direction: row;
+    .people,
+    .wishes,
+    .dates {
+      display: flex;
+      flex-direction: row;
+      column-gap: 1rem;
+      flex-grow: 1;
+
+      .text,
+      .values {
         display: flex;
-        flex-direction: row;
-        .people, .wishes, .dates {
-            display: flex;
-            flex-direction: row;
-            column-gap: 1rem;
-            flex-grow: 1;
-
-            .text, .values {
-                display: flex;
-                flex-direction: column;
-                p {
-                    margin: 0;
-                }
-            }
+        flex-direction: column;
+        p {
+          margin: 0;
         }
+      }
     }
-    table {
-        width: 100%;
-        border-collapse: collapse;
-        margin: 1rem 0;
-        border: 2px solid black;
-        tr {
-            &:nth-child(even) {
-                td {
-                    background-color: #EEEEEE;
-                }
-            }
-            td, th {
-                padding: 3px;
-                border-left: 2px solid black;
-                border-right: 2px solid black;
-            }
-            th {
-                background-color: #CCCCCC;
-            }
-            td {
-
-                &.input {
-                    text-align: center;
-                    input {
-                        width: 2rem;
-                    }
-                }
-
-            }
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1rem 0;
+    border: 2px solid black;
+    tr {
+      &:nth-child(even) {
+        td {
+          background-color: #eeeeee;
         }
+      }
+      td,
+      th {
+        padding: 3px;
+        border-left: 2px solid black;
+        border-right: 2px solid black;
+      }
+      th {
+        background-color: #cccccc;
+      }
+      td {
+        &.input {
+          text-align: center;
+          input {
+            width: 3rem;
+          }
+        }
+      }
     }
+  }
 }

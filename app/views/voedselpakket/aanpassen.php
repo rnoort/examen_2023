@@ -63,11 +63,7 @@ include APPROOT . "/views/Includes/Navbar.php";
                 </div>
                 <div class="values">
                     <p><?= $data['Voedselpakket']->DatumSamenstelling ?></p>
-                    <?php if ($data['Voedselpakket']->DatumUitgifte == NULL): ?>
-                    <p><input type="datetime-local" name="uitgifte" id="uitgifte"></p>
-                    <?php else: ?>
-                    <p><?= $data['Voedselpakket']->DatumUitgifte ?></p>
-                    <?php endif; ?>
+                    <p><input type="datetime-local" name="uitgifte" id="uitgifte" value="<?= $data['Voedselpakket']->DatumUitgifte ?>"></p>
                 </div>
             </div>
         </div>

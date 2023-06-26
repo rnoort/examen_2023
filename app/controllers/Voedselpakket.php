@@ -190,10 +190,16 @@ class Voedselpakket extends Controller
                                 $csvString .= $key . ":" . $product;
                         }
                     }
-    
-                    $this->voedselpakketModel->updateVoedselpakket($_POST, $csvString, $id);
-    
-                    $voedselpakket = $this->voedselpakketModel->getVoedselpakketById($id);
+
+                    if ($this->voedselpakketModel->updateVoedselpakket($_POST, $csvString, $id))
+                    {
+                        $error = "Er is iets fout gegaan";
+                    }    
+                    else
+                    {
+                        $error = "Voedselpakket aangepast!";
+                        header("Refresh: 3; url=". URLROOT . "/voedselpakket/inzien/$id");
+                    }
                 }
             }
 

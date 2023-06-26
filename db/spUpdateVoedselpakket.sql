@@ -36,8 +36,13 @@ BEGIN
 				SET _ProductId = CAST(LEFT(Str, SubPos - 1) AS UNSIGNED);
 				SET _Aantal = CAST(SUBSTRING(Str, SubPos + 1, CHAR_LENGTH(Str) - SubPos) AS UNSIGNED);
 				IF (SELECT EXISTS(SELECT * FROM `VoedselpakketProduct` WHERE `VoedselpakketId` = _id AND `ProductId` = _ProductId)) THEN
-					UPDATE `VoedselpakketProduct` SET `Aantal` = _Aantal WHERE VoedselpakketId = _id AND `ProductId` = _ProductId;
+					IF _Aantal = 0 THEN
+						DELETE FROM `VoedselpakketProduct` WHERE `VoedselpakketId` = _id AND `ProductId` = _ProductId;
+                    ELSE
+						UPDATE `VoedselpakketProduct` SET `Aantal` = _Aantal WHERE VoedselpakketId = _id AND `ProductId` = _ProductId;
+					END IF;
 				ELSE
+					IF _Aantal > 0 THEN
 					INSERT INTO `VoedselpakketProduct` (
 			  	  	           `VoedselpakketId`
                         ,`ProductId`
@@ -48,6 +53,7 @@ BEGIN
                         ,_ProductId
                         ,_Aantal
 			  	  );
+					END IF;
 				END IF;
 			  END IF;
 
